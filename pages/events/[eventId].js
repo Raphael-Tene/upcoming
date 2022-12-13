@@ -4,13 +4,20 @@ import { getEventById } from "../../eventData";
 import EventSummary from "../../components/event-detail/event-summary";
 import EventLogistics from "../../components/event-detail/event-logistics";
 import EventContent from "../../components/event-detail/event-content";
+import ErrorAlert from "../../components/UI/error-alert";
 function Event() {
   const router = useRouter();
   const eventId = router.query.eventId;
   const event = getEventById(eventId);
 
   if (!event) {
-    return <p> No event found.</p>;
+    return (
+      <Fragment>
+        <ErrorAlert>
+          <p> No event found.</p>;
+        </ErrorAlert>
+      </Fragment>
+    );
   }
 
   return (
