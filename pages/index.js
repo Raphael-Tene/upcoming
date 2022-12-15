@@ -1,15 +1,22 @@
+/* eslint-disable react/prop-types */
 // @ts-nocheck
 import React from "react";
 import EventList from "../components/events/event-list";
-import { getFeaturedEvents } from "../eventData";
+import { getFeaturedEvents } from "../helpers/api-util";
 
-function HomePage() {
-  const featuredEvents = getFeaturedEvents();
+function HomePage(props) {
   return (
     <div>
-      <EventList items={featuredEvents} />
+      <EventList items={props.events} />
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const featuredEvents = await getFeaturedEvents();
+  return {
+    props: { events: featuredEvents },
+  };
 }
 
 export default HomePage;
